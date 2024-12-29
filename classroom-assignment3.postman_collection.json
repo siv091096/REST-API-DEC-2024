@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "1ecacd67-098a-43f2-94c2-b65f8eae5188",
+		"name": "classroom-assignment3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40245903"
+	},
+	"item": [
+		{
+			"name": "Create Using Chain Request & Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"var response = pm.response.json();\r",
+							"pm.collectionVariables.set(\"SysId\", response.result.sys_id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Create New Record Using PostMan\",\r\n    \"short_description\": \"CREATE - PostMan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Using Chain Request & Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate fetching correct sys_id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.sys_id).to.eql(pm.collectionVariables.get(\"SysId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/:sys_id",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						":sys_id"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						},
+						{
+							"key": "sys_id",
+							"value": "{{SysId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Using Chain Request & Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate fetching correct sys_id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.sys_id).to.eql(pm.collectionVariables.get(\"SysId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Update Record Using PostMan\",\r\n    \"short_description\": \"PUT - PostMan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/:sys_id",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						":sys_id"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						},
+						{
+							"key": "sys_id",
+							"value": "{{SysId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Using Chain Request & Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/:sys_id",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						":sys_id"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						},
+						{
+							"key": "sys_id",
+							"value": "{{SysId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm the Deletion Using Chain Request & Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/:sys_id",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						":sys_id"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						},
+						{
+							"key": "sys_id",
+							"value": "{{SysId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userName",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "passWord",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "SysId",
+			"value": ""
+		}
+	]
+}

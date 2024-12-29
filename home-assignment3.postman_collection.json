@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "e8b4d57f-8274-4e0e-a7bf-164ea6344554",
+		"name": "home-assignment3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40245903"
+	},
+	"item": [
+		{
+			"name": "Generate OAuth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"var resp = pm.response.json();\r",
+							"\r",
+							"var token = resp.access_token;\r",
+							"\r",
+							"pm.globals.set(\"Access_token\",token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3d71117eb0564243b186d54e7ec167d6",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "}GdH|cDq~:",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "RxbDVA*v4!f8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/oauth_token.do",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"oauth_token.do"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Change Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"var resp = pm.response.json();\r",
+							"\r",
+							"var sys_id = resp.result.sys_id;\r",
+							"\r",
+							"pm.globals.set(\"System_ID\", sys_id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"Automated change request creation\",\r\n    \"description\": \"Software\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "change_request"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Change Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/{{System_ID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						"{{System_ID}}"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "change_request"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Change Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"Automated change request Updation\",\r\n    \"description\": \"Software updation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/{{System_ID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						"{{System_ID}}"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "change_request"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Change Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"No Content\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName/{{System_ID}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName",
+						"{{System_ID}}"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "change_request"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "15916238-a76d-4ca9-be28-470b4310cdb2",
+		"name": "classroom-assignment4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40245903"
+	},
+	"item": [
+		{
+			"name": "Create an Incident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"var resp = pm.response.json();\r",
+							"var sysid = resp.result.sys_id;\r",
+							"pm.collectionVariables.set(\"incidentSysId\", sysid);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{userName}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{passWord}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"{{Short_Desc}}\",\r\n    \"description\": \"{{Desc}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{hostName}}/{{basePath}}/:tableName",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{hostName}}"
+					],
+					"path": [
+						"{{basePath}}",
+						":tableName"
+					],
+					"variable": [
+						{
+							"key": "tableName",
+							"value": "incident"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "incidentSysId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userName",
+			"value": "admin"
+		},
+		{
+			"key": "passWord",
+			"value": "RxbDVA*v4!f8"
+		}
+	]
+}
